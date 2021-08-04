@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { CheckLoginGuard } from './guards/check-login.guard';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,7 @@ import { NavbarComponent } from './components/navbar/navbar.component';
     AppRoutingModule,
     FormsModule,
   ],
-  providers: [],
+  providers: [CheckLoginGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

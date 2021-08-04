@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         if (res == 200) {
           this.isLoginValid = true;
           this.resetUser();
-          this.router.navigate(['/home'])
+          this.router.navigate([''])
         }
         else {
           this.isLoginValid = false;
