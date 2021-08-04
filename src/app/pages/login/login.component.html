@@ -5,13 +5,14 @@
                 <h3 class="card-title">Login</h3>
             </div>
             <div class="card-body">
-                <form class="form">
+                <form class="form" #loginForm="ngForm" (ngSubmit)="submit()">
                     <div class="form-group">
                         <label class="form-label" for="email">Email:</label>
                         <input type="text"
                          class="form-control"
                          name="email" 
                          placeholder="Email"
+                         [(ngModel)]="user.email"
                          required>
                     </div>
                     <div class="form-group">
@@ -20,9 +21,12 @@
                          class="form-control"
                          name="password"
                          placeholder="Password"
+                         [(ngModel)]="user.password"
                          required>
                     </div>
-                    <button class="btn btn-primary btn-block mt-2">Send</button>
+                    <p *ngIf="isLoginValid == false">Email or password are wrong. Please try again.</p>
+                    <p *ngIf="isUserEmpty == true">User and password are required. Please try again.</p>
+                    <button class="btn btn-primary btn-block mt-2" type="submit">Login</button>
                 </form>
             </div>
         </div>
