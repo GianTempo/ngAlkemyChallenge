@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '@app/models/user.interface';
 import { environment } from '@env/environment';
-import  Axios, { AxiosResponse } from 'axios';
-import { Observable, Subject } from 'rxjs';
+import  Axios from 'axios';;
 import { Router } from '@angular/router';
 
 @Injectable({
