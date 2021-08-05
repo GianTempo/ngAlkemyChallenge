@@ -12,8 +12,15 @@
                          class="form-control"
                          name="email" 
                          placeholder="Email"
+                         #email="ngModel"
                          [(ngModel)]="user.email"
-                         required>
+                         required
+                         email
+                         autofocus>
+                         <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                            <p *ngIf="email.errors?.required" class="font-weight-bold text-warning">Email is required.</p>
+                            <p *ngIf="email.errors?.email" class="font-weight-bold text-warning">Invalid email.</p>
+                         </div>
                     </div>
                     <div class="form-group">
                         <label for="password" class="form-label">Password:</label>
@@ -21,12 +28,18 @@
                          class="form-control"
                          name="password"
                          placeholder="Password"
+                         #password="ngModel"
                          [(ngModel)]="user.password"
-                         required>
+                         required
+                         autofocus>
+                         <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                            <p *ngIf="password.errors?.required" class="font-weight-bold text-warning">Password is required.</p>
+                         </div>
                     </div>
                     <p *ngIf="isLoginValid == false">Email or password are wrong. Please try again.</p>
-                    <p *ngIf="isUserEmpty == true">User and password are required. Please try again.</p>
-                    <button class="btn btn-primary btn-block mt-2" type="submit">Login</button>
+                    <button class="btn btn-primary btn-block mt-2" 
+                    type="submit"
+                    [disabled]="!loginForm.form.valid">Login</button>
                 </form>
             </div>
         </div>

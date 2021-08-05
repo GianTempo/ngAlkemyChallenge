@@ -3,11 +3,7 @@ import { User } from '@app/models/user.interface';
 import { environment } from '@env/environment';
 import  Axios, { AxiosResponse } from 'axios';
 import { Observable, Subject } from 'rxjs';
-
-//Import Jwt helper service
-import { JwtHelperService } from '@auth0/angular-jwt';
 import { Router } from '@angular/router';
-const helper = new JwtHelperService();
 
 @Injectable({
   providedIn: 'root'

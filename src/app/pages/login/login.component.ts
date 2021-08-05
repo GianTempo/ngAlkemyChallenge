@@ -17,21 +17,14 @@ export class LoginComponent implements OnInit {
   }
 
   isLoginValid: boolean = true; //Parameter to validate if login is successful or not.
-  isUserEmpty: boolean = undefined; //Parameter to validate if the email or password of the user is empty when user sends the login request.
   user: User = {
     email: '',
     password: '',
   }
 
   submit(): void {
-    if (this.user.email == '' || this.user.password == '') {
-      this.isUserEmpty = true;
-    }
-    else if(this.user.email !== '' || this.user.password !== '') {
-      this.isUserEmpty = false;
       this.authSvc.login(this.user).then((res) => {
         if (res == 200) {
-          this.isLoginValid = true;
           this.resetUser();
           this.router.navigate([''])
         }
@@ -40,7 +33,6 @@ export class LoginComponent implements OnInit {
           this.resetUser()
         }
       });
-    }
   }
 
   resetUser(): void {
