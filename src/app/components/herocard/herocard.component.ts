@@ -7,7 +7,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class HerocardComponent implements OnInit {
 
-  @Input() heroes: []
+  @Input() hero:any
 
   constructor() { }
 
