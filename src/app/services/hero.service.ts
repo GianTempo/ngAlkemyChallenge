@@ -19,16 +19,11 @@ export class HeroService {
    * Function to get a heroe from the API based on his Id.
    * @returns The heroe whose match the given id, if any.
   */
-  getHeroe(id: number) {
-    let heroe
-    Axios.get(`${environment.HERO_API_URL}/${id}`)
-      .then(
-        res => heroe = res
-      )
-      .catch(
-        err => console.error(err)
-      )
-    return heroe;
+  getHeroe(id: number):Promise<any> {
+      return Axios({
+        url: `${environment.HERO_API_URL}/${id}`,
+        method: 'get',
+      })
   }
 
   /**
@@ -38,14 +33,10 @@ export class HeroService {
    * @returns An array of heroes matching the given name, if any.
   */ 
   searchHeroe(name: string) {
-    let heroes
-    Axios.get(`${environment.HERO_API_URL}/search/${name}`)
-      .then(
-        response => heroes = response
-      )
-      .catch(
-        err => console.error()
-      )
+    return Axios({
+      url: `${environment.HERO_API_URL}/search/${name}`,
+      method: 'get'
+    })
   }
 
   /**
@@ -65,15 +56,7 @@ export class HeroService {
    * Function that adds a given heroe to the team.
    * It checks whether the team has 3 or more heroes or villains and add the heroe if both conditions are false.
   */
-  addHeroe(heroId: number): string {
-    let hero
-    Axios.get(`${environment.HERO_API_URL}/${heroId}`)
-      .then(
-        res => hero = res
-      )
-      .catch(
-        err => console.error(err)
-      )
+  addHeroe(hero:any): string {
     if (hero.biography.alignment) {
       if (this.heroesCount >= 3) {
         return 'Too much heroes'
@@ -85,7 +68,7 @@ export class HeroService {
         this.team.push(hero)
         this.heroesCount++
       }
-      else if (hero.biography.alignment == 'evil' && this.villainsCount <3) {
+      else if (hero.biography.alignment == 'bad' && this.villainsCount <3) {
         this.team.push(hero)
         this.villainsCount++
       }

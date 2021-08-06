@@ -10,6 +10,7 @@ import { HomeComponent } from './pages/home/home.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { CheckLoginGuard } from './guards/check-login.guard';
 import { MainPageComponent } from './pages/main-page/main-page.component';
+import { HerocardComponent } from './components/herocard/herocard.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { MainPageComponent } from './pages/main-page/main-page.component';
     LoginComponent,
     HomeComponent,
     NavbarComponent,
-    MainPageComponent
+    MainPageComponent,
+    HerocardComponent
   ],
   imports: [
     BrowserModule,
