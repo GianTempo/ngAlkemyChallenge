@@ -71,21 +71,20 @@ export class HeroService {
   */
   addHeroe(hero:any): string {
     if (hero.biography.alignment) {
-      if (this.heroesCount >= 3) {
-        return 'Too much heroes'
-      }
-      else if (this.villainsCount >= 3) {
-        return 'Too much villains'
-      }
-      else if (hero.biography.alignment == 'good' && this.heroesCount < 3) {
+      if (hero.biography.alignment == 'good' && this.heroesCount <= 2) {
         this.team.members.push(hero)
         this.calcStats(hero)
         this.heroesCount++
+        return 'Added'
       }
-      else if (hero.biography.alignment == 'bad' && this.villainsCount <3) {
+      else if ((hero.biography.alignment == 'bad' || hero.biography.alignment == '-') && this.villainsCount <= 2) {
         this.team.members.push(hero)
         this.calcStats(hero)
         this.villainsCount++
+        return 'Added'
+      }
+      if (this.heroesCount >= 3 || this.villainsCount >= 3) {
+        return 'Too many heroes'
       }
     }
   }

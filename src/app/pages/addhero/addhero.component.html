@@ -10,6 +10,15 @@
         </div>
     </div>
 </div>
+<div *ngIf="failure == true" class="row">
+    <div class="col-2">
+        <div class="card">
+            <div class="card-header bg-warning">
+                <h6 class="card-title">There are too many heroes</h6>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row row-cols-6">
     <div *ngFor="let hero of heroes">
         <app-herocard
