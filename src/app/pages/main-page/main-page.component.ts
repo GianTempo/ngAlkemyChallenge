@@ -27,17 +27,27 @@ export class MainPageComponent implements OnInit {
   */
   setMaxStat(): void {
     let keys = [],
-    k, maxStat;
+    k, maxStat, maxvalue;
 
     for (k in this.team.stats) {
     if (this.team.stats.hasOwnProperty(k)) {
       keys.push(k);
     }
     }
-  
-    for (k in keys) { //sort array to get the max stat of the team
-      if (keys[k] !== 'avgHeight' && keys[k] !== 'avgWeight') { //sort only the stats that aren't avgHeight or avgWeight.
-        this.team.stats[keys[k + 1]] > this.team.stats[keys[k]] ? maxStat = keys[k + 1] : maxStat = [keys[k]];
+
+    if (this.team.stats[keys[0]] > this.team.stats[keys[1]]) { //Get the max stat from the first two stats
+      maxStat = [keys[0]]
+      maxvalue = this.team.stats[keys[0]]
+    }
+    else {
+      maxStat = [keys[1]]
+      maxvalue = this.team.stats[keys[1]]
+    }
+
+    for (let i = 1; i < 6; i++) { //sort array to get the max stat of the team
+      if (this.team.stats[keys[i]] > maxvalue) {
+        maxStat = [keys[i]]
+        maxvalue = this.team.stats[keys[i]]
       }
     }
     this.maxstat = maxStat[0];

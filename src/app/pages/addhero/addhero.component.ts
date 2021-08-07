@@ -27,7 +27,6 @@ export class AddheroComponent implements OnInit {
     this.success = false;
     this.failure = false;
     this.herosvc.getHeroe(e).then(res => {
-      console.log(res.data.biography.alignment)
       let status = this.herosvc.addHeroe(res.data)
       if (status == 'Too many heroes') { //Check if there's too many heroes in the team. (>=3)
         this.failure = true
