@@ -1,61 +1,71 @@
-        <div class="card text-center border-primary">
-            <div class="card-header">
-                <img src="{{hero.image.url}}" class="card-img-top" alt="...">
-            </div>
-            <div class="card-body">
-                <h3 class="card-title">{{hero.name}}</h3>
-            </div>
-            <ul class="list-group">
-                <h5 class="list-group-item">Stats</h5>
+<div class="card text-center border-primary">
+    <div class="card-header">
+        <img src="{{hero.image.url}}" class="card-img-top" alt="...">
+    </div>
+    <div class="card-body">
+        <h3 class="card-title">{{hero.name}}</h3>
+    </div>
+    <div  *ngIf="cardType == 'remove'">
+        <ul class="list-group">
+            <h5 class="list-group-item">Stats</h5>
+            <li class="list-group-item">
+                <i class="fas fa-dumbbell"></i> Strength: {{hero.powerstats.strength}}
+            </li>
+            <li class="list-group-item">
+                <i class="fas fa-brain"></i> Intelligence: {{hero.powerstats.intelligence}}
+            </li>
+            <li class="list-group-item">
+                <i class="fas fa-running"></i> Speed: {{hero.powerstats.speed}}
+            </li>
+            <li class="list-group-item">
+                <i class="fas fa-fist-raised"></i> Power: {{hero.powerstats.power}}
+            </li>
+            <li class="list-group-item">
+                <i class="fas fa-sun"></i> Combat: {{hero.powerstats.combat}}
+            </li>
+            <li class="list-group-item">
+                <i class="fas fa-battery-full"></i> Durability: {{hero.powerstats.durability}}
+            </li>
+        </ul>
+        <div class="card-body">
+            <h5
+            class="btn btn-outline-primary"
+            role="button"
+            [attr.href]="'#hero' + hero.id"
+            data-bs-toggle="collapse"
+            >Details <i class="fas fa-caret-down"></i>
+            </h5>
+            <div class="collapse" id="hero{{hero.id}}">
                 <li class="list-group-item">
-                    <i class="fas fa-dumbbell"></i> Strength: {{hero.powerstats.strength}}
+                    Weight: {{hero.appearance.weight[1]}}
                 </li>
                 <li class="list-group-item">
-                    <i class="fas fa-brain"></i> Intelligence: {{hero.powerstats.intelligence}}
+                    Height: {{hero.appearance.height[1]}}
                 </li>
                 <li class="list-group-item">
-                    <i class="fas fa-running"></i> Speed: {{hero.powerstats.speed}}
+                    Name: {{hero.biography['full-name']}}
                 </li>
                 <li class="list-group-item">
-                    <i class="fas fa-fist-raised"></i> Power: {{hero.powerstats.power}}
+                    Alias: {{hero.biography.aliases[0]}}
                 </li>
                 <li class="list-group-item">
-                    <i class="fas fa-sun"></i> Combat: {{hero.powerstats.combat}}
+                    Eyes color: {{hero.appearance['eye-color']}}
                 </li>
                 <li class="list-group-item">
-                    <i class="fas fa-battery-full"></i> Durability: {{hero.powerstats.durability}}
+                    Hair color: {{hero.appearance['hair-color']}}
                 </li>
-            </ul>
-            <div class="card-body">
-                <h5
-                class="btn btn-outline-primary"
-                role="button"
-                [attr.href]="'#hero' + hero.id"
-                data-bs-toggle="collapse"
-                >Details <i class="fas fa-caret-down"></i>
-                </h5>
-                <div class="collapse" id="hero{{hero.id}}">
-                    <li class="list-group-item">
-                        Weight: {{hero.appearance.weight[1]}}
-                    </li>
-                    <li class="list-group-item">
-                        Height: {{hero.appearance.height[1]}}
-                    </li>
-                    <li class="list-group-item">
-                        Name: {{hero.biography['full-name']}}
-                    </li>
-                    <li class="list-group-item">
-                        Alias: {{hero.biography.aliases[0]}}
-                    </li>
-                    <li class="list-group-item">
-                        Eyes color: {{hero.appearance['eye-color']}}
-                    </li>
-                    <li class="list-group-item">
-                        Hair color: {{hero.appearance['hair-color']}}
-                    </li>
-                    <li class="list-group-item">
-                        Work: {{hero.work.base}}
-                    </li>
-                </div>
+                <li class="list-group-item">
+                    Work: {{hero.work.base}}
+                </li>
             </div>
         </div>
+        <div class="card-body">
+            <button class="btn btn-outline-primary" (click)="removehero(hero.id)">Remove</button>
+        </div>
+    </div>
+    <div *ngIf="cardType == 'add'">
+        <div class="card-body">
+            <button class="btn btn-outline-primary" (click)="addhero(hero.id)">Add</button>
+        </div>
+    </div>
+</div>
