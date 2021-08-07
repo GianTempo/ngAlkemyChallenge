@@ -1,3 +1,22 @@
 <app-addheroform
     (addHero)="searchHero($event)"
 ></app-addheroform>
+<div *ngIf="success == true" class="row">
+    <div class="col-2">
+        <div class="card">
+            <div class="card-header bg-success">
+                <h6 class="card-title">Added hero succesfully</h6>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row row-cols-6">
+    <div *ngFor="let hero of heroes">
+        <app-herocard
+        [cardType]="'add'"
+        [hero]="hero"
+        (addHero)="addHero($event)"
+        >
+        </app-herocard>
+    </div>
+</div>

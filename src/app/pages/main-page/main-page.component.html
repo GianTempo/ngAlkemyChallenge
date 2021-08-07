@@ -2,9 +2,10 @@
     [teamStats] = "team.stats"
     [maxStat]="maxstat"
 ></app-teamcard>
-<div class="row row-cols-6 mt-5">
+<div class="row row-cols-6">
     <div *ngFor="let hero of team.members">
         <app-herocard
+        [cardType]="'remove'"
         [hero]="hero"
         ></app-herocard>
     </div>
