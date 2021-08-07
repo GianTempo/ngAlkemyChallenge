@@ -12,6 +12,8 @@ import { CheckLoginGuard } from './guards/check-login.guard';
 import { MainPageComponent } from './pages/main-page/main-page.component';
 import { HerocardComponent } from './components/herocard/herocard.component';
 import { TeamcardComponent } from './components/teamcard/teamcard.component';
+import { AddheroComponent } from './pages/addhero/addhero.component';
+import { AddheroformComponent } from './components/addheroform/addheroform.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { TeamcardComponent } from './components/teamcard/teamcard.component';
     NavbarComponent,
     MainPageComponent,
     HerocardComponent,
-    TeamcardComponent
+    TeamcardComponent,
+    AddheroComponent,
+    AddheroformComponent
   ],
   imports: [
     BrowserModule,

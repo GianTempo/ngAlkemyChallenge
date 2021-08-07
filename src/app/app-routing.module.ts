@@ -6,6 +6,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { MainPageComponent } from './pages/main-page/main-page.component'
 import { CheckLoginGuard } from './guards/check-login.guard';
+import { AddheroComponent } from './pages/addhero/addhero.component';
 
 const routes: Routes = [
   {
@@ -31,7 +32,10 @@ const routes: Routes = [
         path: 'main', 
         component: MainPageComponent,
       },
-      //TODO: add 'Add heroes' route once the respective page is created.
+      {
+        path: 'addhero',
+        component: AddheroComponent
+      }
     ],
   },
 ];
