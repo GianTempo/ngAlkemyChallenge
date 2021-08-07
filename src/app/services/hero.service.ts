@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Team } from '@app/models/team.interface';
 import { environment } from '@env/environment';
 import Axios from 'axios';
 
@@ -9,9 +10,21 @@ export class HeroService {
 
   constructor () { }
   
-  private team = [] /**Array containing the heros team*/
-  heroesCount: number = 0;
-  villainsCount: number = 0;
+  private team:Team = {  /**Array containing the heros team*/
+    stats: {
+      strength: 0,
+      intelligence: 0,
+      speed: 0,
+      power: 0,
+      combat: 0,
+      durability: 0,
+      avgWeight: 0,
+      avgHeight: 0,
+    },
+    members: [],
+  } 
+    heroesCount: number = 0;
+    villainsCount: number = 0;
 
   /**
    * @function getHeroes()
@@ -44,7 +57,7 @@ export class HeroService {
    * @returns {Array} Team - The current team of heroes.
    * Getter that is used to access to the heroes team.
   */
-  getTeam():Array<any> {
+  getTeam():Team {
     return this.team
   }
 
@@ -65,11 +78,13 @@ export class HeroService {
         return 'Too much villains'
       }
       else if (hero.biography.alignment == 'good' && this.heroesCount < 3) {
-        this.team.push(hero)
+        this.team.members.push(hero)
+        this.calcStats(hero)
         this.heroesCount++
       }
       else if (hero.biography.alignment == 'bad' && this.villainsCount <3) {
-        this.team.push(hero)
+        this.team.members.push(hero)
+        this.calcStats(hero)
         this.villainsCount++
       }
     }
@@ -81,6 +96,40 @@ export class HeroService {
    * It removes a heroe of the current team based on his id.
   */
   deleteHeroe(heroeId: number): void {
-    this.team.filter(hero => hero.id !== heroeId);
+    this.team.members.filter(hero => hero.id !== heroeId);
+  }
+
+
+  /**
+   * @function calcStats
+   * @param hero - The hero that has been added to the team
+   * This function calculates the new values of the stats of the team.
+  */
+  calcStats(hero:any): void {
+    let team = this.getTeam()
+    let index1 = hero.appearance.height[1].indexOf("")
+    let heroheight = parseInt(hero.appearance.height[1].substring(0, index1))
+    let index2 = hero.appearance.weight[1].indexOf("")
+    let heroweight = parseInt(hero.appearance.weight[1].substring(0, index2))
+    team.stats.combat += parseInt(hero.powerstats.combat)
+    team.stats.durability += parseInt(hero.powerstats.durability)
+    team.stats.intelligence += parseInt(hero.powerstats.intelligence)
+    team.stats.power += parseInt(hero.powerstats.power)
+    team.stats.speed += parseInt(hero.powerstats.speed)
+    team.stats.strength += parseInt(hero.powerstats.strength)
+    if (team.stats.avgHeight != 0) {
+      team.stats.avgHeight = (heroheight + team.stats.avgHeight) / 2
+    }
+    else {
+      team.stats.avgHeight = heroheight
+    }
+    if (team.stats.avgWeight != 0) {
+      team.stats.avgWeight = (heroheight + team.stats.avgWeight) / 2
+    }
+    else {
+      team.stats.avgWeight = heroweight
+    }
+
+    this.team = team
   }
 }

@@ -1,5 +1,9 @@
+<app-teamcard
+    [teamStats] = "team.stats"
+    [maxStat]="maxstat"
+></app-teamcard>
 <div class="row row-cols-6 mt-5">
-    <div *ngFor="let hero of heroes">
+    <div *ngFor="let hero of team.members">
         <app-herocard
         [hero]="hero"
         ></app-herocard>

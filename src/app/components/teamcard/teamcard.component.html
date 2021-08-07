@@ -1,0 +1,40 @@
+<div class="card mt-2">
+    <div class="card-header">
+        <h2 class="card-title">Team:</h2> 
+    </div>
+    <div class="card-body">
+        <h5 class="list-group-item">Stats:</h5>
+        <ul class="row row-cols-3">
+            <li class="list-group-item"
+            [ngClass]="{'order-first': maxStat == 'strength'}">
+            <i class="fas fa-dumbbell me-1"></i>Strength: {{teamStats.strength}}
+            </li>
+            <li class="list-group-item"
+            [ngClass]="{'order-first': maxStat == 'intelligence'}">
+                <i class="fas fa-brain me-1"></i>Intelligence: {{teamStats.intelligence}}
+            </li>
+            <li class="list-group-item"
+            [ngClass]="{'order-first': maxStat == 'speed'}">
+                <i class="fas fa-running me-1"></i>Speed: {{teamStats.speed}}
+            </li>
+            <li class="list-group-item"
+            [ngClass]="{'order-first': maxStat == 'power'}">
+                <i class="fas fa-fist-raised me-1"></i>Power: {{teamStats.power}}
+            </li>
+            <li class="list-group-item"
+            [ngClass]="{'order-first': maxStat == 'combat'}">
+                <i class="fas fa-sun me-1"></i>Combat: {{teamStats.combat}}
+            </li>
+            <li class="list-group-item"
+            [ngClass]="{'order-first': maxStat == 'durability'}">
+                <i class="fas fa-battery-full me-1"></i>Durability: {{teamStats.durability}}
+            </li>
+            <li class="list-group-item">
+                <i class="fas fa-weight me-1"></i>Average weight: {{teamStats.avgWeight}}kg
+            </li>
+            <li class="list-group-item">
+                <i class="fas fa-arrows-alt-v"></i> Average height: {{teamStats.avgHeight}}cm
+            </li>
+        </ul>
+    </div>
+</div>
