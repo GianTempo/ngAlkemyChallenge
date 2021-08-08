@@ -1,0 +1,13 @@
+<app-teamcard
+    [teamStats] = "team.stats"
+    [maxStat]="maxstat"
+></app-teamcard>
+<div class="row row-cols-6">
+    <div *ngFor="let hero of team.members">
+        <app-herocard
+        [cardType]="'remove'"
+        [hero]="hero"
+        (removeHero)="removeHero($event)"
+        ></app-herocard>
+    </div>
+</div>
