@@ -52,4 +52,13 @@ export class MainPageComponent implements OnInit {
     }
     this.maxstat = maxStat[0];
   }
+
+  removeHero(e: any) {
+    this.heroSvc.deleteHeroe(e)
+    this.getTeam()
+  }
+
+  getTeam(): void {
+    this.team = this.heroSvc.getTeam()
+  }
 }

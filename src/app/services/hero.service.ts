@@ -101,17 +101,19 @@ export class HeroService {
   deleteHeroe(heroId: number): void {
     let hero
     this.getHeroe(heroId).then(
-      res => hero = res.data
+      (res) => {
+        hero = res.data
+        if (hero.biography.alignment == 'good') { //Update hero counter if the member is a hero
+          this.heroesCount--
+        }
+        else if (hero.biography.alignment == 'bad' || hero.biography.alignment == '-') { //Update villains counter if member is a villain
+          this.villainsCount--
+        }
+        this.membersCount--
+        this.calcStats(hero, 'remove')
+        this.team.members = this.team.members.filter(h => h.id != hero.id);
+      }
     )
-    if (hero.biography.alignment == 'good') { //Update hero counter if the member is a hero
-      this.heroesCount--
-    }
-    else if (hero.biography.alignment == 'bad' || hero.biography.alignment == '-') { //Update villains counter if member is a villain
-      this.villainsCount--
-    }
-    this.membersCount--
-    this.calcStats(hero, 'remove')
-    this.team.members.filter(hero => hero.id !== heroId);
   }
 
 
@@ -128,7 +130,6 @@ export class HeroService {
     let index2 = hero.appearance.weight[1].indexOf(" ")
     let heroweight = parseInt(hero.appearance.weight[1].substring(0, index2))
     if (mode == 'add') { //Add all properties to team stats and calculate average weight again
-      console.log('adding')
       team.stats.combat += parseInt(hero.powerstats.combat)
       team.stats.durability += parseInt(hero.powerstats.durability)
       team.stats.intelligence += parseInt(hero.powerstats.intelligence)
@@ -141,7 +142,6 @@ export class HeroService {
       team.stats.avgWeight = Math.trunc(this.totalweight / this.membersCount)
     }
     else if (mode == 'remove') {//Substract all properties from team stats and calculate new averages
-      console.log('removing')
       team.stats.combat -= parseInt(hero.powerstats.combat)
       team.stats.durability -= parseInt(hero.powerstats.durability)
       team.stats.intelligence -= parseInt(hero.powerstats.intelligence)
@@ -150,8 +150,14 @@ export class HeroService {
       team.stats.strength -= parseInt(hero.powerstats.strength)
       this.totalheights -= heroheight
       this.totalweight -= heroweight
-      team.stats.avgHeight = Math.trunc(this.totalheights / this.membersCount)
-      team.stats.avgWeight = Math.trunc(this.totalweight  / this.membersCount)
+      if (this.totalheights == 0 || this.totalweight == 0) { //Check if this is the last member (so we don't divide 0 in next step)
+        team.stats.avgHeight = 0
+        team.stats.avgWeight = 0
+      }
+      else {
+        team.stats.avgHeight = Math.trunc(this.totalheights / this.membersCount)
+        team.stats.avgWeight = Math.trunc(this.totalweight  / this.membersCount)
+      }
     }
     this.team = team
   }
