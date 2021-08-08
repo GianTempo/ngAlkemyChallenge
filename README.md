@@ -4,7 +4,8 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## What is this project
 
-This app has born as a solution to the Alkemy's Angular Challenge. It consists of an app when an user can search and add his favourite superheros and villains to a team.
+This app has born as a solution to the Alkemy's Angular Challenge.</br> 
+It consists of an app when an user can search and add his favourite superheros and villains to a team.</br>
 The team can be made up to 6 members, with maximum 3 heroes and 3 villains. All the data is obtained from [SuperHero API](https://superheroapi.com/).
 
 ### How to run it
@@ -28,6 +29,6 @@ ng serve
 Wait until it compiles and runs the application. It now has to be running on https://localhost:4200
 
 ### Credentials
-To log in into the application, use the following credentials:
-email: challenge@alkemy.org
+To log in into the application, use the following credentials: </br>
+email: challenge@alkemy.org</br>
 password: react
