@@ -23,9 +23,11 @@ export class HeroService {
     },
     members: [],
   } 
-    heroesCount: number = 0;
-    villainsCount: number = 0;
-
+  heroesCount: number = 0;
+  villainsCount: number = 0;
+  membersCount: number = 0
+  totalheights: number = 0;
+  totalweight: number = 0;
   /**
    * @function getHeroes()
    * @param {number} id Id of the hero
@@ -73,14 +75,16 @@ export class HeroService {
     if (hero.biography.alignment) {
       if (hero.biography.alignment == 'good' && this.heroesCount <= 2) {
         this.team.members.push(hero)
-        this.calcStats(hero)
+        this.membersCount++
         this.heroesCount++
+        this.calcStats(hero, 'add')
         return 'Added'
       }
       else if ((hero.biography.alignment == 'bad' || hero.biography.alignment == '-') && this.villainsCount <= 2) {
         this.team.members.push(hero)
-        this.calcStats(hero)
+        this.membersCount++
         this.villainsCount++
+        this.calcStats(hero, 'add')
         return 'Added'
       }
       if (this.heroesCount >= 3 || this.villainsCount >= 3) {
@@ -94,41 +98,61 @@ export class HeroService {
    * @param {number} heroeId - The id of the hero the user wants to remove from the team.
    * It removes a heroe of the current team based on his id.
   */
-  deleteHeroe(heroeId: number): void {
-    this.team.members.filter(hero => hero.id !== heroeId);
+  deleteHeroe(heroId: number): void {
+    let hero
+    this.getHeroe(heroId).then(
+      res => hero = res.data
+    )
+    if (hero.biography.alignment == 'good') { //Update hero counter if the member is a hero
+      this.heroesCount--
+    }
+    else if (hero.biography.alignment == 'bad' || hero.biography.alignment == '-') { //Update villains counter if member is a villain
+      this.villainsCount--
+    }
+    this.membersCount--
+    this.calcStats(hero, 'remove')
+    this.team.members.filter(hero => hero.id !== heroId);
   }
 
 
   /**
    * @function calcStats
    * @param hero - The hero that has been added to the team
+   * @param {string}mode - The mode of the calc. If 'add', function will add all properties, if 'remove', function will substract all properties
    * This function calculates the new values of the stats of the team.
   */
-  calcStats(hero:any): void {
+  calcStats(hero:any, mode: string): void {
     let team = this.getTeam()
-    let index1 = hero.appearance.height[1].indexOf("")
+    let index1 = hero.appearance.height[1].indexOf(" ")
     let heroheight = parseInt(hero.appearance.height[1].substring(0, index1))
-    let index2 = hero.appearance.weight[1].indexOf("")
+    let index2 = hero.appearance.weight[1].indexOf(" ")
     let heroweight = parseInt(hero.appearance.weight[1].substring(0, index2))
-    team.stats.combat += parseInt(hero.powerstats.combat)
-    team.stats.durability += parseInt(hero.powerstats.durability)
-    team.stats.intelligence += parseInt(hero.powerstats.intelligence)
-    team.stats.power += parseInt(hero.powerstats.power)
-    team.stats.speed += parseInt(hero.powerstats.speed)
-    team.stats.strength += parseInt(hero.powerstats.strength)
-    if (team.stats.avgHeight != 0) {
-      team.stats.avgHeight = (heroheight + team.stats.avgHeight) / 2
+    if (mode == 'add') { //Add all properties to team stats and calculate average weight again
+      console.log('adding')
+      team.stats.combat += parseInt(hero.powerstats.combat)
+      team.stats.durability += parseInt(hero.powerstats.durability)
+      team.stats.intelligence += parseInt(hero.powerstats.intelligence)
+      team.stats.power += parseInt(hero.powerstats.power)
+      team.stats.speed += parseInt(hero.powerstats.speed)
+      team.stats.strength += parseInt(hero.powerstats.strength)
+      this.totalheights += heroheight
+      this.totalweight += heroweight
+      team.stats.avgHeight = Math.trunc(this.totalheights / this.membersCount)
+      team.stats.avgWeight = Math.trunc(this.totalweight / this.membersCount)
     }
-    else {
-      team.stats.avgHeight = heroheight
+    else if (mode == 'remove') {//Substract all properties from team stats and calculate new averages
+      console.log('removing')
+      team.stats.combat -= parseInt(hero.powerstats.combat)
+      team.stats.durability -= parseInt(hero.powerstats.durability)
+      team.stats.intelligence -= parseInt(hero.powerstats.intelligence)
+      team.stats.power -= parseInt(hero.powerstats.power)
+      team.stats.speed -= parseInt(hero.powerstats.speed)
+      team.stats.strength -= parseInt(hero.powerstats.strength)
+      this.totalheights -= heroheight
+      this.totalweight -= heroweight
+      team.stats.avgHeight = Math.trunc(this.totalheights / this.membersCount)
+      team.stats.avgWeight = Math.trunc(this.totalweight  / this.membersCount)
     }
-    if (team.stats.avgWeight != 0) {
-      team.stats.avgWeight = (heroheight + team.stats.avgWeight) / 2
-    }
-    else {
-      team.stats.avgWeight = heroweight
-    }
-
     this.team = team
   }
 }
