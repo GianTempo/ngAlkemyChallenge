@@ -2,26 +2,32 @@
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.2.12.
 
-## Development server
+## What is this project
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This app has born as a solution to the Alkemy's Angular Challenge. It consists of an app when an user can search and add his favourite superheros and villains to a team.
+The team can be made up to 6 members, with maximum 3 heroes and 3 villains. All the data is obtained from [SuperHero API](https://superheroapi.com/).
 
-## Code scaffolding
+### How to run it
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+First, you have to clone this repository:
+```bash
+git clone https://github.com/GianTempo/ngAlkemyChallenge.git
+```
+Then you navigate into the repository's folder and run the npm install command:
+```bash
+cd /ngAlkemyChallenge
+npm install
+```
 
-## Build
+This will install all the necessary dependencies.
+When it's done, run ng serve:
+```bash
+ng serve
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Wait until it compiles and runs the application. It now has to be running on https://localhost:4200
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Credentials
+To log in into the application, use the following credentials:
+email: challenge@alkemy.org
+password: react
